@@ -22,6 +22,20 @@ function Dashboard({ code }) {
   }
 
   useEffect(() => {
+    if (!playingTrack) return
+
+    axios
+      .get('http://localhost:3001/lyrics', {
+        params: {
+          track: playingTrack.title,
+          artist: playingTrack.artist,
+        },
+      })
+      .then((res) => {
+        setLyrics(res.data.lyrics)
+      })
+  }, [playingTrack])
+  useEffect(() => {
     if (!accessToken) return
     spotifyApi.setAccessToken(accessToken)
   }, [accessToken])
@@ -65,10 +79,16 @@ function Dashboard({ code }) {
       />
       <div className='flex-grow-1 my-2' style={{ overflowY: 'auto' }}>
         {searchResults.map((track) => (
-          <TrackSearchResult track={track} key={track.uri} />
+          <TrackSearchResult
+            chooseTrack={chooseTrack}
+            track={track}
+            key={track.uri}
+          />
         ))}
         {searchResults.length === 0 && (
-          <div className='text-center' style={{ whiteSpace: 'pre' }}></div>
+          <div className='text-center' style={{ whiteSpace: 'pre' }}>
+            {lyrics}
+          </div>
         )}
       </div>
       <div>

@@ -1,13 +1,15 @@
 require('dotenv').config()
 const express = require('express')
-const env = require('dotenv')
+
 const cors = require('cors')
 const lyricsFinder = require('lyrics-finder')
 const SpotifyWebApi = require('spotify-web-api-node')
+const bodyParser = require('body-parser')
 
 const app = express()
 
 app.use(express.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
 
 app.post('/refresh', (req, res) => {
@@ -52,5 +54,11 @@ app.post('/login', (req, res) => {
     .catch((err) => {
       res.sendStatus(400)
     })
+})
+
+app.get('/lyrics', async (req, res) => {
+  const lyrics =
+    (await lyricsFinder(req.query.artist, req.query.track)) || 'No Lyrics Found'
+  res.json({ lyrics })
 })
 app.listen(3001)
