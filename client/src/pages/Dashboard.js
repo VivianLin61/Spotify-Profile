@@ -25,7 +25,7 @@ function Dashboard({ code }) {
     if (!playingTrack) return
 
     axios
-      .get('http://localhost:3001/lyrics', {
+      .get('http://localhost:4000/lyrics', {
         params: {
           track: playingTrack.title,
           artist: playingTrack.artist,
