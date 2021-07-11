@@ -24,7 +24,7 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  background: #6649b8;
+  // background: #6649b8;
 }
 
 main {
@@ -38,7 +38,7 @@ main {
   transition: width 600ms ease;
   .nav-link {
     svg {
-      font-size: 45px;
+      font-size: 50px;
       width: 4rem;
       margin: 0 0.5rem;
     }
@@ -48,9 +48,7 @@ main {
   display: flex;
   align-items: center;
   height: 5rem;
-  color: var(--text-primary);
-  text-decoration: none;
-  filter: grayscale(100%) opacity(0.7);
+
   transition: var(--transition-speed);
   svg {
     font-size: 100px;
@@ -118,12 +116,13 @@ main {
     width: 100vw;
     height: 5rem;
   }
-
   .navbar .link-text {
     visibility: hidden;
     opacity: 0;
   }
-
+  .logo {
+    display: none;
+  }
   .navbar-nav {
     flex-direction: row;
   }
@@ -146,7 +145,7 @@ main {
   }
 
   .navbar:hover {
-    width: 16rem;
+    width: 12rem;
   }
 
   .navbar .link-text {
@@ -159,7 +158,10 @@ main {
     opacity: 1;
   }
   .link-text {
-    transition: 1s all;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    padding-left: 1rem;
   }
 }
 
