@@ -5,7 +5,11 @@ import SpotifyWebApi from 'spotify-web-api-node'
 import TrackSearchResult from '../components/TrackSearchResult.js'
 import Player from '../components/Player.js'
 import axios from 'axios'
-
+import Layout from '../components/Layout.js'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Profile from '../pages/Profile.js'
+import Artists from '../pages/Artists.js'
+import Tracks from '../pages/Tracks.js'
 const spotifyApi = new SpotifyWebApi({
   clientId: '8515d3f514614d3da7c8e1b533e664c2',
 })
@@ -70,31 +74,11 @@ function Dashboard({ code }) {
     return () => (cancel = true)
   }, [search, accessToken])
   return (
-    <Container className='d-flex flex-column py-2' style={{ height: '100vh' }}>
-      <Form.Control
-        type='search'
-        placeholder='Search Songs/Artists'
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <div className='flex-grow-1 my-2' style={{ overflowY: 'auto' }}>
-        {searchResults.map((track) => (
-          <TrackSearchResult
-            chooseTrack={chooseTrack}
-            track={track}
-            key={track.uri}
-          />
-        ))}
-        {searchResults.length === 0 && (
-          <div className='text-center' style={{ whiteSpace: 'pre' }}>
-            {lyrics}
-          </div>
-        )}
-      </div>
-      <div>
-        <Player accessToken={accessToken} trackUri={playingTrack?.uri} />
-      </div>
-    </Container>
+    <Layout>
+      <Route exact path='/' component={Profile} />
+      <Route exact path='/artists' component={Artists}></Route>
+      <Route exact path='/tracks' component={Tracks}></Route>
+    </Layout>
   )
 }
 
