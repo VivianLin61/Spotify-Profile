@@ -8,23 +8,23 @@ import { Link } from 'react-router-dom'
 function Sidebar() {
   function SidebarItem(props) {
     return (
-      <li class='nav-item'>
-        <Link to={props.link} class='nav-link'>
+      <li className='nav-item'>
+        <Link to={props.link} className='nav-link'>
           <props.icon />
-          <span class='link-text'>{props.title}</span>
+          <span className='link-text'>{props.title}</span>
         </Link>
       </li>
     )
   }
   return (
-    <nav class='navbar'>
-      <ul class='navbar-nav'>
-        <li class='nav-item'>
+    <nav className='navbar'>
+      <ul className='navbar-nav'>
+        <li className='nav-item'>
           <div className='logo'>
             <FaSpotify />
           </div>
         </li>
-        <li class='nav-item'>
+        <li className='nav-item'>
           <div className='nav-link'></div>
         </li>
         <SidebarItem icon={CgProfile} title={'Profile'} link={'/'} />

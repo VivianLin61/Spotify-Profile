@@ -1,5 +1,4 @@
 import React from 'react'
-import useAuth from '../hooks/useAuth.js'
 import SpotifyWebApi from 'spotify-web-api-node'
 import Layout from '../components/Layout.js'
 import { Route } from 'react-router-dom'
@@ -14,8 +13,6 @@ const spotifyApi = new SpotifyWebApi({
 })
 
 function Dashboard({ token }) {
-  // const accessToken = useAuth(code)
-
   return (
     <Layout accessToken={token} spotifyApi={spotifyApi}>
       <Route exact path='/' component={Profile} />

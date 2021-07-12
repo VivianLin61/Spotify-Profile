@@ -19,26 +19,27 @@ const getLocalAccessToken = () =>
 const getLocalRefreshToken = () =>
   window.localStorage.getItem('spotify_refresh_token')
 
-export default function useAuth(code) {
+export default function useAuth({ code, logout }) {
   const [accessToken, setAccessToken] = useState()
+  // eslint-disable-next-line no-unused-vars
   const [refreshToken, setRefreshToken] = useState()
-  const localAccessToken = getLocalAccessToken()
 
   const getAccessToken = async () => {
     try {
+      //Token has expired
       if (Date.now() - getTokenTimestamp() > EXPIRATION_TIME) {
         console.warn('Access token has expired, refreshing...')
         refreshAccessToken()
         return
       }
+
+      const localAccessToken = getLocalAccessToken()
       // If access token already exists in local storage
       if (localAccessToken || localAccessToken !== null) {
         setRefreshToken(getLocalRefreshToken())
         setAccessToken(getLocalAccessToken())
         return
       }
-
-      // If token has expired
 
       // Get new token
       const { data } = await axios.post('http://localhost:4000/login', {
@@ -62,7 +63,6 @@ export default function useAuth(code) {
       const { data } = await axios.post('http://localhost:4000/refresh', {
         token,
       })
-      console.log(data)
       setAccessToken(data.accessToken)
       setLocalAccessToken(data.accessToken)
     } catch (e) {
@@ -70,7 +70,15 @@ export default function useAuth(code) {
     }
   }
   useEffect(() => {
-    getAccessToken()
+    if (!logout) {
+      getAccessToken()
+    } else {
+      //logout
+      window.localStorage.removeItem('spotify_token_timestamp')
+      window.localStorage.removeItem('spotify_access_token')
+      window.localStorage.removeItem('spotify_refresh_token')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return accessToken

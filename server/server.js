@@ -13,7 +13,6 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
 
 app.post('/refresh', (req, res) => {
-  console.log('hi')
   const refreshToken = req.body.token
   const spotifyApi = new SpotifyWebApi({
     redirectUri: `${process.env.REDIRECT_URI}`,
