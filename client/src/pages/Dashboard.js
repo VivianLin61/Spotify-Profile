@@ -12,11 +12,12 @@ import Artist from '../pages/Artist.js'
 const spotifyApi = new SpotifyWebApi({
   clientId: '8515d3f514614d3da7c8e1b533e664c2',
 })
-function Dashboard({ code }) {
-  const accessToken = useAuth(code)
+
+function Dashboard({ token }) {
+  // const accessToken = useAuth(code)
 
   return (
-    <Layout accessToken={accessToken} spotifyApi={spotifyApi}>
+    <Layout accessToken={token} spotifyApi={spotifyApi}>
       <Route exact path='/' component={Profile} />
       <Route exact path='/artists' component={Artists}></Route>
       <Route exact path='/tracks' component={Tracks}></Route>
