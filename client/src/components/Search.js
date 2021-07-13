@@ -3,7 +3,7 @@ import { Form, Dropdown, DropdownButton, ButtonGroup } from 'react-bootstrap'
 import TrackSearchResult from '../components/TrackSearchResult.js'
 import Player from '../components/Player.js'
 import axios from 'axios'
-
+import { logout } from '../spotifyAPI/index.js'
 function Search(props) {
   const { accessToken, spotifyApi } = props
   const [search, setSearch] = useState('')
@@ -85,7 +85,9 @@ function Search(props) {
         >
           <Dropdown.Item eventKey='1'>Action</Dropdown.Item>
           <Dropdown.Item eventKey='2'>Another action</Dropdown.Item>
-          <Dropdown.Item eventKey='3'>Logout</Dropdown.Item>
+          <Dropdown.Item eventKey='3' onClick={logout}>
+            Logout
+          </Dropdown.Item>
         </DropdownButton>
       </div>
     </div>
