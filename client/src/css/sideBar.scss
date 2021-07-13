@@ -44,6 +44,12 @@ main {
     }
   }
 }
+
+*,
+::after,
+::before {
+  box-sizing: unset;
+}
 .logo {
   display: flex;
   align-items: center;
@@ -94,11 +100,6 @@ main {
   color: #df49a6;
 }
 
-*,
-::after,
-::before {
-  box-sizing: unset;
-}
 .logo {
   text-transform: uppercase;
   color: green;

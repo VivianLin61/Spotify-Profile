@@ -27,6 +27,7 @@ export default function useAuth({ code, logout }) {
   const getAccessToken = async () => {
     try {
       //Token has expired
+      console.log(Date.now() - getTokenTimestamp())
       if (Date.now() - getTokenTimestamp() > EXPIRATION_TIME) {
         console.warn('Access token has expired, refreshing...')
         refreshAccessToken()
@@ -36,6 +37,7 @@ export default function useAuth({ code, logout }) {
       const localAccessToken = getLocalAccessToken()
       // If access token already exists in local storage
       if (localAccessToken || localAccessToken !== null) {
+        console.log('local')
         setRefreshToken(getLocalRefreshToken())
         setAccessToken(getLocalAccessToken())
         return
@@ -51,6 +53,8 @@ export default function useAuth({ code, logout }) {
         setLocalAccessToken(data.accessToken)
         setLocalRefreshToken(data.refreshToken)
       }
+
+      console.log(data)
     } catch (e) {
       console.log(e)
     }

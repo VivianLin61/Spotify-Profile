@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Form } from 'react-bootstrap'
+import { Form, Dropdown, DropdownButton, ButtonGroup } from 'react-bootstrap'
 import TrackSearchResult from '../components/TrackSearchResult.js'
 import Player from '../components/Player.js'
 import axios from 'axios'
@@ -66,31 +66,29 @@ function Search(props) {
   }, [search, accessToken, spotifyApi])
 
   return (
-    <Container style={{ height: '100vh' }}>
-      <Form.Control
-        type='search'
-        placeholder='Search Songs/Artists'
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
-      <div className='flex-grow-1 my-2' style={{ overflowY: 'auto' }}>
-        {searchResults.map((track) => (
-          <TrackSearchResult
-            chooseTrack={chooseTrack}
-            track={track}
-            key={track.uri}
-          />
-        ))}
-        {searchResults.length === 0 && (
-          <div className='text-center' style={{ whiteSpace: 'pre' }}>
-            {lyrics}
-          </div>
-        )}
+    <div className='app-container' style={{ height: '100vh' }}>
+      <div className='search-container'>
+        <Form.Control
+          type='search'
+          className='searchBar'
+          placeholder='Search Songs/Artists'
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+
+        <DropdownButton
+          as={ButtonGroup}
+          id={`dropdown-variants-Secondary`}
+          variant={'secondary'}
+          title={'Username'}
+          className='menu'
+        >
+          <Dropdown.Item eventKey='1'>Action</Dropdown.Item>
+          <Dropdown.Item eventKey='2'>Another action</Dropdown.Item>
+          <Dropdown.Item eventKey='3'>Logout</Dropdown.Item>
+        </DropdownButton>
       </div>
-      <div>
-        <Player accessToken={accessToken} trackUri={playingTrack?.uri} />
-      </div>
-    </Container>
+    </div>
   )
 }
 

@@ -4,3 +4,14 @@
 body {
   background-color: #201c1c;
 }
+.app-container {
+  // display: flex;
+  margin-left: 112px;
+  padding: 15px;
+}
+
+.search-container {
+  display: flex;
+  justify-content: space-between;
+  // width: 50%;
+}

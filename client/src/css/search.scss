@@ -1,0 +1,66 @@
+.searchBar {
+  width: 50%;
+  padding: 15px;
+  height: 10px;
+  border-radius: 20px;
+}
+
+.serachResults {
+  display: inline;
+}
+
+.menu {
+  .dropdown-menu {
+    padding: 0.5rem;
+  }
+  button {
+    background-color: black;
+    border-color: black;
+    border-radius: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  button:hover {
+    background-color: black;
+    border-color: black;
+  }
+  .btn-secondary.focus,
+  .btn-secondary:focus {
+    color: white;
+    background-color: black;
+    border-color: black;
+    box-shadow: black;
+  }
+  .btn-secondary:not(:disabled):not(.disabled).active:focus,
+  .btn-secondary:not(:disabled):not(.disabled):active:focus,
+  .show > .btn-secondary.dropdown-toggle:focus {
+    box-shadow: black;
+    background-color: black;
+  }
+  div {
+    background-color: #282828;
+    .dropdown-item {
+      box-sizing: border-box;
+      padding: 10px;
+      border-radius: 5px;
+      color: white;
+    }
+    .dropdown-item:hover {
+      background-color: #3e3e3e;
+    }
+    a {
+      padding: 0px;
+    }
+  }
+  //   display: block;
+  //   width: 100%;
+  //   height: calc(1.5em + 0.75rem + 2px);
+  //   padding: 0.375rem 0.75rem;
+  //   font-size: 1rem;
+  //   font-weight: 400;
+  //   line-height: 1.5;
+  //   color: #495057;
+  //   background-color: #fff;
+  //   background-clip: padding-box;
+  //   border: 1px solid #ced4da;
+}
