@@ -1,35 +1,48 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Form, Dropdown, DropdownButton, ButtonGroup } from 'react-bootstrap'
 import TrackSearchResult from '../components/TrackSearchResult.js'
-import Player from '../components/Player.js'
-import axios from 'axios'
 import { logout } from '../spotifyAPI/index.js'
 function Search(props) {
   const { accessToken, spotifyApi } = props
   const [search, setSearch] = useState('')
   const [searchResults, setSearchResults] = useState([])
-  const [playingTrack, setPlayingTrack] = useState()
-  const [lyrics, setLyrics] = useState('')
-  function chooseTrack(track) {
-    setPlayingTrack(track)
-    setSearch('')
-    setLyrics('')
-  }
+  const [show, setShow] = useState(false)
+  const node = useRef()
 
   useEffect(() => {
-    if (!playingTrack) return
+    if (search !== '') {
+      setShow(true)
+    } else {
+      setShow(false)
+    }
+  }, [search])
 
-    axios
-      .get('http://localhost:4000/lyrics', {
-        params: {
-          track: playingTrack.title,
-          artist: playingTrack.artist,
-        },
-      })
-      .then((res) => {
-        setLyrics(res.data.lyrics)
-      })
-  }, [playingTrack])
+  useEffect(() => {
+    let searchResultsContainer = document.querySelectorAll('.search-results')[0]
+    if (searchResultsContainer && show) {
+      let searchResultsContainer =
+        document.querySelectorAll('.search-results')[0]
+      searchResultsContainer.classList.add('display')
+    } else if (searchResultsContainer && !show) {
+      searchResultsContainer.classList.remove('display')
+    }
+  }, [show])
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClick)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClick)
+    }
+  })
+  const handleClick = (e) => {
+    if (node.current) {
+      if (node.current.contains(e.target)) {
+        return
+      }
+    }
+    setShow(false)
+  }
+
   useEffect(() => {
     if (!accessToken) return
     spotifyApi.setAccessToken(accessToken)
@@ -53,6 +66,7 @@ function Search(props) {
           )
 
           return {
+            id: track.id,
             artist: track.artists[0].name,
             title: track.name,
             uri: track.uri,
@@ -66,10 +80,9 @@ function Search(props) {
   }, [search, accessToken, spotifyApi])
 
   return (
-    <div className='app-container' style={{ height: '100vh' }}>
+    <div className='app-container'>
       <div className='search-container'>
         <Form.Control
-          type='search'
           className='searchBar'
           placeholder='Search Songs/Artists'
           value={search}
@@ -83,12 +96,22 @@ function Search(props) {
           title={'Username'}
           className='menu'
         >
-          <Dropdown.Item eventKey='1'>Action</Dropdown.Item>
-          <Dropdown.Item eventKey='2'>Another action</Dropdown.Item>
           <Dropdown.Item eventKey='3' onClick={logout}>
             Logout
           </Dropdown.Item>
         </DropdownButton>
+      </div>
+      <div ref={node} className='search-results'>
+        <div>Search Results</div>
+        <div className='flex-grow-1 my-2' style={{ overflowY: 'auto' }}>
+          {searchResults.map((track) => (
+            <TrackSearchResult
+              setShow={setShow}
+              track={track}
+              key={track.uri}
+            />
+          ))}
+        </div>
       </div>
     </div>
   )

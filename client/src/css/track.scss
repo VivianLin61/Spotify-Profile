@@ -1,0 +1,61 @@
+.search-result {
+  .track-name {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  div:nth-child(2) {
+    font-size: 18px;
+    text-decoration: none;
+    font-weight: normal;
+  }
+}
+.search-item:hover {
+  text-decoration: none;
+  border-radius: 15px;
+  background-color: var(--secondary-color);
+}
+.track-header {
+  color: var(--text-muted);
+}
+.track-header,
+.track-card {
+  display: flex;
+
+  div:nth-child(1) {
+    width: 40%;
+  }
+  div:nth-child(2) {
+    width: 30%;
+  }
+  div:nth-child(3) {
+    width: 35%;
+  }
+  div:nth-child(4) {
+    width: 15%;
+  }
+}
+.track-card {
+  display: flex;
+  div {
+    div > div {
+      width: 100%;
+    }
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .time-ranges {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+.lyrics-container {
+  display: flex;
+  justify-content: center;
+}

@@ -23,6 +23,7 @@ const code = new URLSearchParams(window.location.search).get('code')
 export const getAccessToken = async () => {
   try {
     //Token has expired
+    console.log(Date.now() - getTokenTimestamp())
     if (Date.now() - getTokenTimestamp() > EXPIRATION_TIME) {
       console.warn('Access token has expired, refreshing...')
       refreshAccessToken()

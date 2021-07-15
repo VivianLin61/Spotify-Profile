@@ -1,17 +1,73 @@
+:root {
+  --main-color: #121212;
+  --secondary-color: #282828;
+  --text-muted: #6c757d;
+  --green: #1db954;
+}
 @import './sideBar.scss';
 @import './search.scss';
+@import './track.scss';
+@import './profile.scss';
 
 body {
-  background-color: #201c1c;
+  background-color: var(--main-color);
 }
 .app-container {
-  // display: flex;
   margin-left: 112px;
-  padding: 15px;
+  padding-top: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  color: white;
 }
 
 .search-container {
   display: flex;
   justify-content: space-between;
-  // width: 50%;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 20px;
+  border-radius: 10px;
+  // border-radius: 14px;
+  // color: blue;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  // background: #f1f1f1;
+  border-radius: 10px !important;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  // background: #888;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  // background: #555;
+}
+
+//Time Ranges
+.time-ranges {
+  button {
+    background-color: var(--main-color);
+    padding: 12px 20px;
+    font-size: 18px;
+    border: none;
+    color: white;
+    // color: var(--text-muted);
+  }
+  button:hover {
+    text-decoration: underline;
+    text-underline-position: under;
+    color: #1db954;
+  }
+  .active-button {
+    text-decoration: underline;
+    text-underline-position: under;
+    color: #1db954;
+    font-weight: bold;
+  }
 }

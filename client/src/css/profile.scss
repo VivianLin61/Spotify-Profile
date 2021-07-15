@@ -1,0 +1,36 @@
+.profile-img {
+  border-radius: 125px;
+}
+.user-info {
+  padding-bottom: 20px;
+  div {
+    div:nth-child(1) {
+      font-weight: 400;
+    }
+    // display-name
+    div:nth-child(2) {
+      font-size: 80px;
+      font-weight: bold;
+    }
+  }
+}
+
+.artists {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+}
+.artist-card {
+  width: 150px;
+  padding: 25px;
+  background-color: #181818;
+  margin-bottom: 15px;
+  img {
+    border-radius: 50%;
+    padding-bottom: 15px;
+  }
+  div:nth-child(1) {
+    font-weight: bold;
+  }
+}
+
