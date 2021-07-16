@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import SpotifyWebApi from 'spotify-web-api-node'
 import Layout from '../components/Layout.js'
 import { Route } from 'react-router-dom'
@@ -8,20 +8,34 @@ import Tracks from '../pages/Tracks.js'
 import Playlists from '../pages/Playlists.js'
 import Track from '../pages/Track.js'
 import Artist from '../pages/Artist.js'
-const scope =
-  'user-read-private user-read-email user-read-recently-played user-top-read user-follow-read user-follow-modify playlist-read-private playlist-read-collaborative playlist-modify-public'
+import Playlist from '../pages/Playlist.js'
+const redirectUri = `${process.env.REACT_APP_REDIRECT_URI}`
+const clientId = `${process.env.REACT_APP_CLIENT_ID}`
 
 const spotifyApi = new SpotifyWebApi({
-  clientId: '8515d3f514614d3da7c8e1b533e664c2',
+  redirectUri: redirectUri,
+  clientId: clientId,
 })
+
 function Dashboard({ token }) {
+  const [user, setUser] = useState()
   useEffect(() => {
     if (!token) return
     spotifyApi.setAccessToken(token)
   }, [token])
 
+  useEffect(() => {
+    spotifyApi.getMe().then(
+      function (data) {
+        setUser(data.body)
+      },
+      function (err) {
+        console.log('Something went wrong!', err)
+      }
+    )
+  }, [])
   return (
-    <Layout accessToken={token} spotifyApi={spotifyApi}>
+    <Layout token={token} spotifyApi={spotifyApi}>
       <Route
         exact
         path='/'
@@ -30,14 +44,18 @@ function Dashboard({ token }) {
       <Route
         exact
         path='/artists'
-        render={() => <Artists spotifyApi={spotifyApi} />}
+        render={() => <Artists token={token} spotifyApi={spotifyApi} />}
       ></Route>
       <Route
         exact
         path='/tracks'
         render={() => <Tracks spotifyApi={spotifyApi} />}
       ></Route>
-      <Route exact path='/playlists' component={Playlists}></Route>
+      <Route
+        exact
+        path='/playlists'
+        render={() => <Playlists user={user} spotifyApi={spotifyApi} />}
+      ></Route>
       <Route
         exact
         path='/track/:trackId'
@@ -50,7 +68,30 @@ function Dashboard({ token }) {
           />
         )}
       ></Route>
-      <Route exact path='/artist/:artistId' component={Artist}></Route>
+      <Route
+        exact
+        path='/artist/:artistId'
+        render={({ match, location }) => (
+          <Artist
+            location={location}
+            match={match}
+            accessToken={token}
+            spotifyApi={spotifyApi}
+          />
+        )}
+      ></Route>
+      <Route
+        exact
+        path='/playlist/:playlistId'
+        render={({ match, location }) => (
+          <Playlist
+            location={location}
+            match={match}
+            accessToken={token}
+            spotifyApi={spotifyApi}
+          />
+        )}
+      ></Route>
     </Layout>
   )
 }

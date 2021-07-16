@@ -7,6 +7,7 @@ function Search(props) {
   const [search, setSearch] = useState('')
   const [searchResults, setSearchResults] = useState([])
   const [show, setShow] = useState(false)
+  const [user, setUser] = useState('')
   const node = useRef()
 
   useEffect(() => {
@@ -49,6 +50,17 @@ function Search(props) {
   }, [accessToken, spotifyApi])
 
   useEffect(() => {
+    spotifyApi.getMe().then(
+      function (data) {
+        setUser(data.body.display_name)
+      },
+      function (err) {
+        console.log('Something went wrong!', err)
+      }
+    )
+  }, [spotifyApi])
+
+  useEffect(() => {
     if (!search) return setSearchResults([])
     if (!accessToken) return
     let cancel = false
@@ -80,7 +92,7 @@ function Search(props) {
   }, [search, accessToken, spotifyApi])
 
   return (
-    <div className='app-container'>
+    <div className='menu-container'>
       <div className='search-container'>
         <Form.Control
           className='searchBar'
@@ -93,7 +105,7 @@ function Search(props) {
           as={ButtonGroup}
           id={`dropdown-variants-Secondary`}
           variant={'secondary'}
-          title={'Username'}
+          title={user}
           className='menu'
         >
           <Dropdown.Item eventKey='3' onClick={logout}>

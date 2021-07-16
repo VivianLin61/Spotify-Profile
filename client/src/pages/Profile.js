@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react'
 import ArtistCard from '../components/ArtistCard.js'
 import TrackCard from '../components/TrackCard.js'
 function Profile(props) {
-  const { spotifyApi } = props
+  const { token, spotifyApi } = props
   const [user, setUser] = useState()
   const [topArtists, setTopArtists] = useState()
   const [topTracks, setTopTracks] = useState()
+  // useEffect(() => {
+  //   if (!token) return
+  //   spotifyApi.setAccessToken(token)
+  // }, [spotifyApi, token])
 
   useEffect(() => {
     spotifyApi.getMe().then(
@@ -18,7 +22,7 @@ function Profile(props) {
     )
   }, [spotifyApi])
   useEffect(() => {
-    spotifyApi.getMyTopArtists({ limit: 6 }).then(
+    spotifyApi.getMyTopArtists({ limit: 5 }).then(
       function (data) {
         setTopArtists(data.body.items)
       },

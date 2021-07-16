@@ -10,3 +10,6 @@ export function millisToMinutesAndSeconds(millis, text) {
 
   return minutes + minText + (seconds < 10 ? '0' : '') + seconds + secText
 }
+export function numberWithCommas(x) {
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+}

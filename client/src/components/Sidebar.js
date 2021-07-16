@@ -20,9 +20,9 @@ function Sidebar() {
     <nav className='navbar'>
       <ul className='navbar-nav'>
         <li className='nav-item'>
-          <div className='logo'>
+          <Link className='logo' to={'/'}>
             <FaSpotify />
-          </div>
+          </Link>
         </li>
         <li className='nav-item'>
           <div className='nav-link'></div>

@@ -59,3 +59,13 @@
   display: flex;
   justify-content: center;
 }
+.track-card {
+  text-decoration: none;
+  color: white;
+  border-radius: 15px;
+}
+
+.track-card:hover {
+  text-decoration: none;
+  color: var(--text-muted);
+}

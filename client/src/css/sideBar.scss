@@ -103,7 +103,9 @@ main {
   letter-spacing: 0.3ch;
   width: 100%;
 }
-
+.logo:hover {
+  color: var(--green);
+}
 /* Small screens */
 @media only screen and (max-width: 600px) {
   .navbar {
