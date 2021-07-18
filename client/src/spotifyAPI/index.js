@@ -23,7 +23,6 @@ const code = new URLSearchParams(window.location.search).get('code')
 export const getAccessToken = async () => {
   try {
     //Token has expired
-    console.log(Date.now() - getTokenTimestamp())
     if (Date.now() - getTokenTimestamp() > EXPIRATION_TIME) {
       console.warn('Access token has expired, refreshing...')
       refreshAccessToken()
@@ -64,7 +63,6 @@ const refreshAccessToken = async () => {
 export const token = getAccessToken()
 
 export const logout = () => {
-  console.log()
   window.localStorage.removeItem('spotify_token_timestamp')
   window.localStorage.removeItem('spotify_access_token')
   window.localStorage.removeItem('spotify_refresh_token')

@@ -70,3 +70,23 @@
   text-decoration: none;
   color: var(--text-muted);
 }
+
+.features-description {
+  h1 {
+    text-align: center;
+    padding-bottom: 10px;
+    font-size: 35px;
+  }
+  span {
+    font-weight: bold;
+    color: white;
+  }
+  div {
+    color: var(--text-muted);
+    padding: 5px;
+  }
+}
+.audio-features {
+  display: flex;
+  justify-content: space-between;
+}

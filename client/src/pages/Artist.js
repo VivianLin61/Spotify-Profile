@@ -11,7 +11,6 @@ function Artist({ spotifyApi, match }) {
   useEffect(() => {
     spotifyApi.getArtist(match.params.artistId).then(
       function (data) {
-        console.log('Artist information', data.bosdy)
         setArtist(data.body)
       },
       function (err) {
@@ -23,7 +22,6 @@ function Artist({ spotifyApi, match }) {
   useEffect(() => {
     spotifyApi.getArtistTopTracks(match.params.artistId, 'US').then(
       function (data) {
-        console.log('Artist information', data.body)
         setArtistTracks(data.body.tracks)
       },
       function (err) {

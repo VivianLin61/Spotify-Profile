@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { millisToMinutesAndSeconds } from '../utils/index.js'
 import Loader from '../components/Loader.js'
+import AudioFeaturesChart from '../components/AudioFeaturesChart.js'
 function Track(props) {
   const { spotifyApi, match } = props
   const [track, setTrack] = useState()
@@ -17,10 +18,10 @@ function Track(props) {
         console.error(err)
       }
     )
-    spotifyApi.getAudioAnalysisForTrack(match.params.trackId).then(
+
+    spotifyApi.getAudioFeaturesForTrack(match.params.trackId).then(
       function (data) {
         setAudioFeatures(data.body)
-        console.log(data.body)
       },
       function (err) {
         console.log(err)
@@ -47,39 +48,85 @@ function Track(props) {
   }
   return (
     <div className='app-container'>
-      {track && (
-        <div className='d-flex m-2 align-items-center'>
-          <img
-            alt='no img'
-            src={track.album.images[0].url}
-            style={{ height: '200px', width: '200px' }}
-            onLoad={() => {
-              updateBackground()
-            }}
-          />
-          <div className='search-result ml-3'>
-            <div className='track-name'>{track.name}</div>
-            <div className='text-muted'>{track.artists[0].name}</div>
-            <div className='text-muted'>
-              <span>Popularity: {track.popularity}% </span>
-              <span>Release Date: {track.album.release_date}</span>
-            </div>
-            <div className='text-muted'>
-              <span>
-                Duration: {millisToMinutesAndSeconds(track.duration_ms, true)}
-              </span>
+      {track && lyrics && audioFeatures ? (
+        <>
+          <div className='d-flex m-2 align-items-center'>
+            <img
+              alt='no img'
+              src={track.album.images[0].url}
+              style={{ height: '200px', width: '200px' }}
+              onLoad={() => {
+                updateBackground()
+              }}
+            />
+            <div className='search-result ml-3'>
+              <div className='track-name'>{track.name}</div>
+              <div className='text-muted'>{track.artists[0].name}</div>
+              <div className='text-muted'>
+                <span>Popularity: {track.popularity}% </span>
+                <span>Release Date: {track.album.release_date}</span>
+              </div>
+              <div className='text-muted'>
+                <span>
+                  Duration: {millisToMinutesAndSeconds(track.duration_ms, true)}
+                </span>
+              </div>
             </div>
           </div>
-        </div>
+          <div className='lyrics-container'>
+            <div style={{ whiteSpace: 'pre' }}>
+              {lyrics === 'No Lyrics Found' ? (
+                console.error('No lyrics found')
+              ) : (
+                <> {lyrics}</>
+              )}
+            </div>
+          </div>
+
+          <div className='audio-features'>
+            <AudioFeaturesChart features={audioFeatures} />
+            <div className='features-description'>
+              <h1>Features Description</h1>
+              <div>
+                <span>Acousticness:</span> A confidence measure from 0.0 to 1.0
+                of whether the track is acoustic.
+              </div>
+              <div>
+                <span>Danceability:</span> Danceability describes how suitable a
+                track is for dancing based on a combination of musical elements
+                including tempo, rhythm stability, beat strength, and overall
+                regularity.
+              </div>
+              <div>
+                <span>Energy:</span> Energy is a measure from 0.0 to 1.0 and
+                represents a perceptual measure of intensity and activity.
+                Typically, energetic tracks feel fast, loud, and noisy.
+              </div>
+              <div>
+                <span>Intrumentalness:</span> Predicts whether a track contains
+                no vocals. “Ooh” and “aah” sounds are treated as instrumental in
+                this context. Rap or spoken word tracks are clearly “vocal”. The
+                closer the instrumentalness value is to 1.0, the greater
+                likelihood the track contains no vocal content
+              </div>
+              <div>
+                <span>Liveness:</span> Detects the presence of an audience in
+                the recording. Higher liveness values represent an increased
+                probability that the track was performed live. A value above 0.8
+                provides strong likelihood that the track is live.
+              </div>
+              <div>
+                <span>Speechiness:</span> Speechiness detects the presence of
+                spoken words in a track. The more exclusively speech-like the
+                recording (e.g. talk show, audio book, poetry), the closer to
+                1.0 the attribute value
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <Loader />
       )}
-      <div className='lyrics-container'>
-        {lyrics ? (
-          <div style={{ whiteSpace: 'pre' }}>{lyrics}</div>
-        ) : (
-          <Loader />
-        )}
-      </div>
-      {/* <div className='audio-features'>{audioFeatures}</div> */}
     </div>
   )
 }

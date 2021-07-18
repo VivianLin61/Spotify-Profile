@@ -42,7 +42,6 @@ function Profile(props) {
       spotifyApi.getUserPlaylists(user.id, { limit: 5 }).then(
         function (data) {
           setPlaylists(data.body.items)
-          console.log(data.body)
         },
         function (err) {
           console.log('Something went wrong!', err)

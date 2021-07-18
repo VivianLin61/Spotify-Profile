@@ -10,7 +10,6 @@ function Playlists(props) {
     spotifyApi.getMe().then(
       function (data) {
         setUser(data.body)
-        console.log(data.body)
       },
       function (err) {
         console.log('Something went wrong!', err)
@@ -23,7 +22,6 @@ function Playlists(props) {
       spotifyApi.getUserPlaylists(user.id).then(
         function (data) {
           setPlaylists(data.body.items)
-          console.log(data.body)
         },
         function (err) {
           console.log('Something went wrong!', err)
