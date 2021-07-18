@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import ArtistCard from '../components/ArtistCard.js'
 import TimeRanges from '../components/TimeRanges.js'
+import Loader from '../components/Loader.js'
+
 function Artists({ spotifyApi }) {
   const [artists, setArtists] = useState()
   const [timeRange, setTimeRange] = useState('short_term')
-
+  document.getElementsByClassName('app')[0].style.background =
+    'var(--main-color)'
   useEffect(() => {
     spotifyApi.getMyTopArtists({ time_range: timeRange }).then(
       function (data) {
@@ -23,10 +26,13 @@ function Artists({ spotifyApi }) {
       </div>
 
       <div className='artists'>
-        {artists &&
+        {artists ? (
           artists.map((artist) => (
             <ArtistCard key={artist.id} artist={artist} />
-          ))}
+          ))
+        ) : (
+          <Loader />
+        )}
       </div>
     </div>
   )

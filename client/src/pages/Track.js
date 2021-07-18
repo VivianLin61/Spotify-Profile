@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { millisToMinutesAndSeconds } from '../utils/index.js'
+import Loader from '../components/Loader.js'
 function Track(props) {
   const { spotifyApi, match } = props
   const [track, setTrack] = useState()
@@ -40,6 +41,10 @@ function Track(props) {
         setLyrics(res.data.lyrics)
       })
   }, [track])
+  const updateBackground = (color) => {
+    document.getElementsByClassName('app')[0].style.background =
+      'var(--main-color)'
+  }
   return (
     <div className='app-container'>
       {track && (
@@ -48,6 +53,9 @@ function Track(props) {
             alt='no img'
             src={track.album.images[0].url}
             style={{ height: '200px', width: '200px' }}
+            onLoad={() => {
+              updateBackground()
+            }}
           />
           <div className='search-result ml-3'>
             <div className='track-name'>{track.name}</div>
@@ -65,7 +73,11 @@ function Track(props) {
         </div>
       )}
       <div className='lyrics-container'>
-        <div style={{ whiteSpace: 'pre' }}>{lyrics}</div>
+        {lyrics ? (
+          <div style={{ whiteSpace: 'pre' }}>{lyrics}</div>
+        ) : (
+          <Loader />
+        )}
       </div>
       {/* <div className='audio-features'>{audioFeatures}</div> */}
     </div>

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import PlaylistCard from '../components/PlaylistCard.js'
+import Loader from '../components/Loader.js'
 function Playlists(props) {
   const { spotifyApi } = props
   const [playlists, setPlaylists] = useState()
@@ -30,17 +31,29 @@ function Playlists(props) {
       )
     }
   }, [spotifyApi, user])
+  const updateBackground = (color) => {
+    document.getElementsByClassName('app')[0].style.background =
+      'var(--main-color)'
+  }
   return (
-    <div className='app-container'>
+    <div
+      className='app-container'
+      onLoad={() => {
+        updateBackground()
+      }}
+    >
       <div className='header'>
         <h1>Playlists</h1>
       </div>
 
       <div className='playlists'>
-        {playlists &&
+        {playlists ? (
           playlists.map((playlist) => (
             <PlaylistCard key={playlist.id} playlist={playlist} />
-          ))}
+          ))
+        ) : (
+          <Loader />
+        )}
       </div>
     </div>
   )

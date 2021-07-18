@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { createRef } from 'react'
 import { Link } from 'react-router-dom'
+
 function ArtistCard({ artist }) {
   return (
     <Link to={`/artist/${artist.id}`} className='artist-card'>

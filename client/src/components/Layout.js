@@ -11,8 +11,10 @@ function Layout(props) {
   return (
     <>
       <Sidebar />
-      <Search accessToken={token} spotifyApi={spotifyApi} />
-      {props.children}
+      <div className='app'>
+        <Search accessToken={token} spotifyApi={spotifyApi} />
+        {props.children}
+      </div>
     </>
   )
 }

@@ -4,6 +4,7 @@ import { numberWithCommas } from '../utils/index.js'
 function Playlist({ match, spotifyApi }) {
   const [playlist, setPlaylist] = useState()
   const [playlistTracks, setPlaylistTracks] = useState()
+  
   useEffect(() => {
     spotifyApi.getPlaylist(match.params.playlistId).then(
       function (data) {
@@ -28,7 +29,7 @@ function Playlist({ match, spotifyApi }) {
             className='artist-img'
           />
           <div className='ml-3'>
-            <div>ARTIST</div>
+            <div>PLAYLIST</div>
             <div>{playlist.name}</div>
             <div>{numberWithCommas(playlist.followers.total)} Followers</div>
           </div>

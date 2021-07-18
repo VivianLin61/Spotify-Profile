@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import TrackCard from '../components/TrackCard.js'
 import TimeRanges from '../components/TimeRanges.js'
+import Loader from '../components/Loader.js'
 function Tracks({ spotifyApi }) {
   const [tracks, setTracks] = useState()
   const [timeRange, setTimeRange] = useState('short_term')
-
+  document.getElementsByClassName('app')[0].style.background =
+    'var(--main-color)'
   useEffect(() => {
     spotifyApi.getMyTopTracks({ time_range: timeRange }).then(
       function (data) {
@@ -29,12 +31,15 @@ function Tracks({ spotifyApi }) {
           <div>RELEASE DATE</div>
           <div>DURATION</div>
         </div>
-        {tracks &&
+        {tracks ? (
           tracks.map((track) => (
             <TrackCard key={track.id} track={track}>
               track
             </TrackCard>
-          ))}
+          ))
+        ) : (
+          <Loader />
+        )}
       </div>
     </div>
   )
