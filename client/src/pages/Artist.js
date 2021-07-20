@@ -3,6 +3,8 @@ import TrackCard from '../components/TrackCard.js'
 import { numberWithCommas } from '../utils/index.js'
 import ColorThief from 'colorthief'
 import TrackHeader from '../components/TrackHeader.js'
+import { getAccessToken } from '../spotifyAPI/index.js'
+
 function Artist({ spotifyApi, match }) {
   const [artist, setArtist] = useState()
   const [artistTracks, setArtistTracks] = useState()
@@ -14,6 +16,7 @@ function Artist({ spotifyApi, match }) {
         setArtist(data.body)
       },
       function (err) {
+        spotifyApi.setAccessToken(getAccessToken())
         console.error(err)
       }
     )
@@ -25,6 +28,7 @@ function Artist({ spotifyApi, match }) {
         setArtistTracks(data.body.tracks)
       },
       function (err) {
+        spotifyApi.setAccessToken(getAccessToken())
         console.error(err)
       }
     )

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ArtistCard from '../components/ArtistCard.js'
 import TimeRanges from '../components/TimeRanges.js'
 import Loader from '../components/Loader.js'
-
+import { getAccessToken } from '../spotifyAPI/index.js'
 function Artists({ spotifyApi }) {
   const [artists, setArtists] = useState()
   const [timeRange, setTimeRange] = useState('short_term')
@@ -12,12 +12,19 @@ function Artists({ spotifyApi }) {
         setArtists(data.body.items)
       },
       function (err) {
+        spotifyApi.setAccessToken(getAccessToken())
         console.log('Something went wrong!', err)
       }
     )
   }, [spotifyApi, timeRange])
   return (
-    <div className='app-container'>
+    <div
+      onLoad={() => {
+        document.getElementsByClassName('app')[0].style.background =
+          'var(--main-color)'
+      }}
+      className='app-container'
+    >
       <div className='header'>
         <h1>Top Artists</h1>
         <TimeRanges setTimeRange={setTimeRange} activeItem={timeRange} />

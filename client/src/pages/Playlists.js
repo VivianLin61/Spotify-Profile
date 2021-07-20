@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import PlaylistCard from '../components/PlaylistCard.js'
 import Loader from '../components/Loader.js'
+import { getAccessToken } from '../spotifyAPI/index.js'
 function Playlists(props) {
   const { spotifyApi } = props
   const [playlists, setPlaylists] = useState()
@@ -13,6 +14,7 @@ function Playlists(props) {
       },
       function (err) {
         console.log('Something went wrong!', err)
+        spotifyApi.setAccessToken(getAccessToken())
       }
     )
   }, [spotifyApi])
@@ -25,6 +27,7 @@ function Playlists(props) {
         },
         function (err) {
           console.log('Something went wrong!', err)
+          spotifyApi.setAccessToken(getAccessToken())
         }
       )
     }

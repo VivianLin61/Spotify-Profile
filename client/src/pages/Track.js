@@ -3,6 +3,7 @@ import axios from 'axios'
 import { millisToMinutesAndSeconds } from '../utils/index.js'
 import Loader from '../components/Loader.js'
 import AudioFeaturesChart from '../components/AudioFeaturesChart.js'
+import { getAccessToken } from '../spotifyAPI/index.js'
 function Track(props) {
   const { spotifyApi, match } = props
   const [track, setTrack] = useState()
@@ -15,6 +16,7 @@ function Track(props) {
         setTrack(data.body)
       },
       function (err) {
+        spotifyApi.setAccessToken(getAccessToken())
         console.error(err)
       }
     )
@@ -24,6 +26,7 @@ function Track(props) {
         setAudioFeatures(data.body)
       },
       function (err) {
+        spotifyApi.setAccessToken(getAccessToken())
         console.log(err)
       }
     )
@@ -42,12 +45,15 @@ function Track(props) {
         setLyrics(res.data.lyrics)
       })
   }, [track])
-  const updateBackground = (color) => {
-    document.getElementsByClassName('app')[0].style.background =
-      'var(--main-color)'
-  }
+
   return (
-    <div className='app-container'>
+    <div
+      onLoad={() => {
+        document.getElementsByClassName('app')[0].style.background =
+          'var(--main-color)'
+      }}
+      className='app-container'
+    >
       {track && lyrics && audioFeatures ? (
         <>
           <div className='d-flex m-2 align-items-center'>
@@ -55,14 +61,13 @@ function Track(props) {
               alt='no img'
               src={track.album.images[0].url}
               style={{ height: '200px', width: '200px' }}
-              onLoad={() => {
-                updateBackground()
-              }}
             />
             <div className='search-result ml-3'>
               <div className='track-name'>{track.name}</div>
               <div className='text-muted'>{track.artists[0].name}</div>
-              <div className='text-muted'>Popularity: {track.popularity}%</div>
+              <div className='text-muted'>
+                <span>Popularity:</span> {track.popularity}%
+              </div>
 
               <div className='text-muted'>
                 <span> Release Date:</span> {track.album.release_date}

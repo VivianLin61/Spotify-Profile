@@ -3,6 +3,7 @@ import TrackCard from '../components/TrackCard.js'
 import { numberWithCommas } from '../utils/index.js'
 import Loader from '../components/Loader.js'
 import TrackHeader from '../components/TrackHeader.js'
+import { getAccessToken } from '../spotifyAPI/index.js'
 function Playlist({ match, spotifyApi }) {
   const [playlist, setPlaylist] = useState()
   const [playlistTracks, setPlaylistTracks] = useState()
@@ -14,6 +15,7 @@ function Playlist({ match, spotifyApi }) {
         setPlaylistTracks(data.body.tracks.items)
       },
       function (err) {
+        spotifyApi.setAccessToken(getAccessToken())
         console.error(err)
       }
     )

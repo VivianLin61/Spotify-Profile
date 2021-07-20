@@ -5,6 +5,7 @@ import ColorThief from 'colorthief'
 import PlaylistCard from '../components/PlaylistCard.js'
 import Loader from '../components/Loader.js'
 import TrackHeader from '../components/TrackHeader.js'
+import { getAccessToken } from '../spotifyAPI/index.js'
 function Profile(props) {
   const { spotifyApi } = props
   const [user, setUser] = useState()
@@ -19,6 +20,7 @@ function Profile(props) {
         setUser(data.body)
       },
       function (err) {
+        spotifyApi.setAccessToken(getAccessToken())
         console.log('Something went wrong!', err)
       }
     )
@@ -29,6 +31,7 @@ function Profile(props) {
         setTopArtists(data.body.items)
       },
       function (err) {
+        spotifyApi.setAccessToken(getAccessToken())
         console.log('Something went wrong!', err)
       }
     )
@@ -45,6 +48,7 @@ function Profile(props) {
           setPlaylists(data.body.items)
         },
         function (err) {
+          spotifyApi.setAccessToken(getAccessToken())
           console.log('Something went wrong!', err)
         }
       )
@@ -65,7 +69,9 @@ function Profile(props) {
               ref={imgRef}
               crossOrigin={'anonymous'}
               src={
-                'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
+                user.images[0]
+                  ? user.images[0].url
+                  : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
               }
               style={{ height: '250px', width: '250px' }}
               className='profile-img'

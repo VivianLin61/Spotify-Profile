@@ -64,4 +64,22 @@
   }
 }
 
-
+@media only screen and (max-width: 780px) {
+  .user-info,
+  .artist-info {
+    display: block !important;
+    text-align: center;
+    img {
+      display: block;
+      margin: auto;
+    }
+    div {
+      div:nth-child(1) {
+        display: none;
+      }
+      div:nth-child(2) {
+        font-size: 60px;
+      }
+    }
+  }
+}

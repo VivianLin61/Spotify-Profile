@@ -3,6 +3,7 @@ import TrackCard from '../components/TrackCard.js'
 import TimeRanges from '../components/TimeRanges.js'
 import Loader from '../components/Loader.js'
 import TrackHeader from '../components/TrackHeader.js'
+import { getAccessToken } from '../spotifyAPI/index.js'
 function Tracks({ spotifyApi }) {
   const [tracks, setTracks] = useState()
   const [timeRange, setTimeRange] = useState('short_term')
@@ -13,6 +14,7 @@ function Tracks({ spotifyApi }) {
         setTracks(data.body.items)
       },
       function (err) {
+        spotifyApi.setAccessToken(getAccessToken())
         console.log('Something went wrong!', err)
       }
     )
