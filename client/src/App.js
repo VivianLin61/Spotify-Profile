@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard.js'
 import { token } from '../src/spotifyAPI/index.js'
+
 function App() {
   const [accessToken, setAccessToken] = useState('')
-
   useEffect(() => {
-    console.log('start')
     var value = Promise.resolve(token)
     value.then(function (i) {
       setAccessToken(i)
