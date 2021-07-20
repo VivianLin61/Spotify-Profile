@@ -4,8 +4,9 @@ import TrackCard from '../components/TrackCard.js'
 import ColorThief from 'colorthief'
 import PlaylistCard from '../components/PlaylistCard.js'
 import Loader from '../components/Loader.js'
+import TrackHeader from '../components/TrackHeader.js'
 function Profile(props) {
-  const { token, spotifyApi } = props
+  const { spotifyApi } = props
   const [user, setUser] = useState()
   const [topArtists, setTopArtists] = useState()
   const [topTracks, setTopTracks] = useState()
@@ -92,12 +93,7 @@ function Profile(props) {
           </div>
           <div className='top-tracks'>
             <h1>Top Tracks This Month</h1>
-            <div className='track-header'>
-              <div className='m-2'>TITLE</div>
-              <div>ALBUM</div>
-              <div>RELEASE DATE</div>
-              <div>DURATION</div>
-            </div>
+            <TrackHeader />
             {topTracks &&
               topTracks.map((track) => (
                 <TrackCard key={track.id} track={track}>

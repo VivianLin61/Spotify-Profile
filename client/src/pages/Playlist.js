@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import TrackCard from '../components/TrackCard.js'
 import { numberWithCommas } from '../utils/index.js'
 import Loader from '../components/Loader.js'
+import TrackHeader from '../components/TrackHeader.js'
 function Playlist({ match, spotifyApi }) {
   const [playlist, setPlaylist] = useState()
   const [playlistTracks, setPlaylistTracks] = useState()
@@ -35,12 +36,7 @@ function Playlist({ match, spotifyApi }) {
             </div>
           </div>
           <div>
-            <div className='track-header'>
-              <div className='m-2'>TITLE</div>
-              <div>ALBUM</div>
-              <div>RELEASE DATE</div>
-              <div>DURATION</div>
-            </div>
+            <TrackHeader />
             {playlistTracks &&
               playlistTracks.map((track, index) => (
                 <div key={index}>

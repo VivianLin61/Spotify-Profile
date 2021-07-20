@@ -2,7 +2,7 @@ import React from 'react'
 import { millisToMinutesAndSeconds } from '../utils/index.js'
 import { Link } from 'react-router-dom'
 function TrackCard({ track }) {
-  const { name, popularity, album, duration_ms, id } = track
+  const { name, popularity, album, duration_ms } = track
   return (
     <>
       {track && (
@@ -12,7 +12,7 @@ function TrackCard({ track }) {
           className='track-card'
         >
           <div
-            className='d-flex m-2 align-items-center'
+            className='d-flex p-2 align-items-center'
             style={{ cursor: 'pointer' }}
           >
             <img
@@ -27,10 +27,12 @@ function TrackCard({ track }) {
               </div>
             </div>
           </div>
-          <div>{album.name}</div>
-          <div>{album.release_date}</div>
-          {/* <div>{popularity}</div> */}
-          <div>{millisToMinutesAndSeconds(duration_ms, false)}</div>
+          <div className='p-2'>{album.name}</div>
+          <div className='p-2'>{album.release_date}</div>
+          <div className='p-2'>{popularity}%</div>
+          <div className='p-2'>
+            {millisToMinutesAndSeconds(duration_ms, false)}
+          </div>
         </Link>
       )}
     </>

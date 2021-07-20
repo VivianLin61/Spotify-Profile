@@ -11,6 +11,8 @@
 
 body {
   background-color: var(--main-color);
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
 }
 .menu-container {
   margin-left: 112px;
@@ -35,25 +37,21 @@ body {
 ::-webkit-scrollbar {
   width: 20px;
   border-radius: 10px;
-  // border-radius: 14px;
-  // color: blue;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  // background: #f1f1f1;
   border-radius: 10px !important;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  // background: #888;
   border-radius: 10px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  // background: #555;
+  // background: #555
 }
 
 //Time Ranges

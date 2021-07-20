@@ -6,7 +6,7 @@ function Layout(props) {
   useEffect(() => {
     if (!token) return
     spotifyApi.setAccessToken(token)
-  }, [token])
+  }, [spotifyApi, token])
 
   return (
     <>

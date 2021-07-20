@@ -62,9 +62,10 @@ function Track(props) {
             <div className='search-result ml-3'>
               <div className='track-name'>{track.name}</div>
               <div className='text-muted'>{track.artists[0].name}</div>
+              <div className='text-muted'>Popularity: {track.popularity}%</div>
+
               <div className='text-muted'>
-                <span>Popularity: {track.popularity}% </span>
-                <span>Release Date: {track.album.release_date}</span>
+                <span> Release Date:</span> {track.album.release_date}
               </div>
               <div className='text-muted'>
                 <span>
@@ -83,7 +84,7 @@ function Track(props) {
             </div>
           </div>
 
-          <div className='audio-features'>
+          <div className='audio-features' style={{ marginTop: '70px' }}>
             <AudioFeaturesChart features={audioFeatures} />
             <div className='features-description'>
               <h1>Features Description</h1>

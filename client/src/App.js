@@ -6,6 +6,7 @@ function App() {
   const [accessToken, setAccessToken] = useState('')
 
   useEffect(() => {
+    console.log('start')
     var value = Promise.resolve(token)
     value.then(function (i) {
       setAccessToken(i)

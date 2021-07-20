@@ -2,7 +2,7 @@ import React, { useState, useEffect, createRef } from 'react'
 import TrackCard from '../components/TrackCard.js'
 import { numberWithCommas } from '../utils/index.js'
 import ColorThief from 'colorthief'
-
+import TrackHeader from '../components/TrackHeader.js'
 function Artist({ spotifyApi, match }) {
   const [artist, setArtist] = useState()
   const [artistTracks, setArtistTracks] = useState()
@@ -57,7 +57,7 @@ function Artist({ spotifyApi, match }) {
             <div>ARTIST</div>
             <div>{artist.name}</div>
             <div>{numberWithCommas(artist.followers.total)} Followers</div>
-            <div>{artist.popularity} Popularity</div>
+            <div>{artist.popularity}% Popularity</div>
             {artist.genres.map((genre, index) => (
               <span key={index}>
                 {index === artist.genres.length - 1 ? (
@@ -80,12 +80,7 @@ function Artist({ spotifyApi, match }) {
         >
           Popular Songs
         </div>
-        <div className='track-header'>
-          <div className='m-2'>TITLE</div>
-          <div>ALBUM</div>
-          <div>RELEASE DATE</div>
-          <div>DURATION</div>
-        </div>
+        <TrackHeader />
         {artistTracks &&
           artistTracks.map((track) => (
             <TrackCard key={track.id} track={track}>

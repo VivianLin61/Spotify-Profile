@@ -24,20 +24,26 @@
   display: flex;
 
   div:nth-child(1) {
-    width: 40%;
-  }
-  div:nth-child(2) {
-    width: 30%;
-  }
-  div:nth-child(3) {
     width: 35%;
   }
-  div:nth-child(4) {
+  div:nth-child(2) {
+    width: 35%;
+  }
+  div:nth-child(3) {
     width: 15%;
+  }
+  div:nth-child(4) {
+    width: 10%;
+  }
+  div:nth-child(5) {
+    width: 5%;
   }
 }
 .track-card {
   display: flex;
+  border-radius: 10px;
+  text-decoration: none;
+  color: white;
   div {
     div > div {
       width: 100%;
@@ -60,15 +66,9 @@
   justify-content: center;
   margin-top: 30px;
 }
-.track-card {
-  text-decoration: none;
-  color: white;
-  border-radius: 15px;
-}
-
 .track-card:hover {
   text-decoration: none;
-  color: var(--text-muted);
+  background-color: #282828;
 }
 
 .features-description {
