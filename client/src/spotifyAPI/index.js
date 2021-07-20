@@ -33,9 +33,12 @@ export const getAccessToken = async () => {
       return getLocalAccessToken()
     }
     // Get new token
-    const { data } = await axios.post('http://localhost:4000/login', {
-      code,
-    })
+    const { data } = await axios.post(
+      'https://spotify-profile-backend.herokuapp.com/login',
+      {
+        code,
+      }
+    )
 
     if (data) {
       setLocalAccessToken(data.accessToken)
@@ -49,9 +52,12 @@ export const getAccessToken = async () => {
 const refreshAccessToken = async () => {
   let token = getLocalRefreshToken()
   try {
-    const { data } = await axios.post('http://localhost:4000/refresh', {
-      token,
-    })
+    const { data } = await axios.post(
+      'https://spotify-profile-backend.herokuapp.com/refresh',
+      {
+        token,
+      }
+    )
     setLocalAccessToken(data.accessToken)
     window.location.reload()
   } catch (e) {

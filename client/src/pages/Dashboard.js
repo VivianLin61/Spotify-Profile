@@ -9,6 +9,7 @@ import Playlists from '../pages/Playlists.js'
 import Track from '../pages/Track.js'
 import Artist from '../pages/Artist.js'
 import Playlist from '../pages/Playlist.js'
+
 const redirectUri = `${process.env.REACT_APP_REDIRECT_URI}`
 const clientId = `${process.env.REACT_APP_CLIENT_ID}`
 

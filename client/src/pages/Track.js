@@ -32,7 +32,7 @@ function Track(props) {
   useEffect(() => {
     if (!track) return
     axios
-      .get('http://localhost:4000/lyrics', {
+      .get('https://spotify-profile-backend.herokuapp.com/lyrics', {
         params: {
           track: track.name,
           artist: track.artists[0].name,

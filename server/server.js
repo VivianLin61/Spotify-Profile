@@ -11,7 +11,7 @@ const app = express()
 app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(cors())
-
+const PORT = process.env.PORT || 4000
 app.post('/refresh', (req, res) => {
   const refreshToken = req.body.token
   const spotifyApi = new SpotifyWebApi({
@@ -61,4 +61,4 @@ app.get('/lyrics', async (req, res) => {
     (await lyricsFinder(req.query.artist, req.query.track)) || 'No Lyrics Found'
   res.json({ lyrics })
 })
-app.listen(4000)
+app.listen({ port: process.env.PORT || 5000 })
