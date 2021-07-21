@@ -30,6 +30,7 @@ app.post('/refresh', (req, res) => {
       })
     })
     .catch((err) => {
+      console.log('error')
       console.log(err)
       res.sendStatus(400)
     })
@@ -61,4 +62,4 @@ app.get('/lyrics', async (req, res) => {
     (await lyricsFinder(req.query.artist, req.query.track)) || 'No Lyrics Found'
   res.json({ lyrics })
 })
-app.listen({ port: process.env.PORT || 5000 })
+app.listen({ port: process.env.PORT || 4000 })

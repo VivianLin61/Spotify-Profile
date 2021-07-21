@@ -1,7 +1,12 @@
 import axios from 'axios'
 
 const EXPIRATION_TIME = 3600 * 1000 // 3600 seconds * 1000 = 1 hour in milliseconds
+const SERVER =
+  process.env.NODE_ENV !== 'production'
+    ? 'http://localhost:4000'
+    : 'https://spotify-profile-backend.herokuapp.com'
 
+console.log(process.env.NODE_ENV)
 const setTokenTimestamp = () => {
   window.localStorage.setItem('spotify_token_timestamp', Date.now())
 }
@@ -22,23 +27,21 @@ const code = new URLSearchParams(window.location.search).get('code')
 // Get access token off of query params
 export const getAccessToken = async () => {
   try {
-    if (Date.now() - getTokenTimestamp() > EXPIRATION_TIME) {
-      console.warn('Access token has expired, refreshing...')
-      refreshAccessToken()
+    if (getTokenTimestamp()) {
+      if (Date.now() - getTokenTimestamp() > EXPIRATION_TIME) {
+        console.warn('Access token has expired, refreshing...')
+        refreshAccessToken()
+      }
     }
-
     const localAccessToken = getLocalAccessToken()
     // If access token already exists in local storage
     if (localAccessToken || localAccessToken !== null) {
       return getLocalAccessToken()
     }
     // Get new token
-    const { data } = await axios.post(
-      'https://spotify-profile-backend.herokuapp.com/login',
-      {
-        code,
-      }
-    )
+    const { data } = await axios.post(`${SERVER}/login`, {
+      code,
+    })
 
     if (data) {
       setLocalAccessToken(data.accessToken)
@@ -52,20 +55,28 @@ export const getAccessToken = async () => {
 const refreshAccessToken = async () => {
   let token = getLocalRefreshToken()
   try {
-    const { data } = await axios.post(
-      'https://spotify-profile-backend.herokuapp.com/refresh',
-      {
-        token,
-      }
-    )
+    const { data } = await axios.post(`${SERVER}/refresh`, {
+      token,
+    })
+    console.log(data)
     setLocalAccessToken(data.accessToken)
     window.location.reload()
   } catch (e) {
     console.log(e)
   }
 }
+
 export const token = getAccessToken()
 
+export const getLyrics = async (track) => {
+  if (!track) return
+  return axios.get(`${SERVER}/lyrics`, {
+    params: {
+      track: track.name,
+      artist: track.artists[0].name,
+    },
+  })
+}
 export const logout = () => {
   window.localStorage.removeItem('spotify_token_timestamp')
   window.localStorage.removeItem('spotify_access_token')

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import { millisToMinutesAndSeconds } from '../utils/index.js'
 import Loader from '../components/Loader.js'
 import AudioFeaturesChart from '../components/AudioFeaturesChart.js'
-import { getAccessToken } from '../spotifyAPI/index.js'
+import { getAccessToken, getLyrics } from '../spotifyAPI/index.js'
+
 function Track(props) {
   const { spotifyApi, match } = props
   const [track, setTrack] = useState()
@@ -33,17 +33,11 @@ function Track(props) {
   }, [match.params.trackId, spotifyApi])
 
   useEffect(() => {
-    if (!track) return
-    axios
-      .get('https://spotify-profile-backend.herokuapp.com/lyrics', {
-        params: {
-          track: track.name,
-          artist: track.artists[0].name,
-        },
-      })
-      .then((res) => {
-        setLyrics(res.data.lyrics)
-      })
+    Promise.resolve(getLyrics(track)).then(function (data) {
+      if (data) {
+        setLyrics(data.data.lyrics)
+      }
+    })
   }, [track])
 
   return (
