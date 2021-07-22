@@ -3,7 +3,7 @@ import { millisToMinutesAndSeconds } from '../utils/index.js'
 import Loader from '../components/Loader.js'
 import AudioFeaturesChart from '../components/AudioFeaturesChart.js'
 import { getAccessToken, getLyrics } from '../spotifyAPI/index.js'
-
+import { Link } from 'react-router-dom'
 function Track(props) {
   const { spotifyApi, match } = props
   const [track, setTrack] = useState()
@@ -14,6 +14,7 @@ function Track(props) {
     spotifyApi.getTrack(match.params.trackId).then(
       function (data) {
         setTrack(data.body)
+        console.log(data.body.artists[0].id)
       },
       function (err) {
         spotifyApi.setAccessToken(getAccessToken())
@@ -58,7 +59,13 @@ function Track(props) {
             />
             <div className='search-result ml-3'>
               <div className='track-name'>{track.name}</div>
-              <div className='text-muted'>{track.artists[0].name}</div>
+              <Link
+                to={`/artist/${track.artists[0].id}`}
+                className='text-muted'
+                style={{ textDecoration: 'underline' }}
+              >
+                {track.artists[0].name}
+              </Link>
               <div className='text-muted'>
                 <span>Popularity:</span> {track.popularity}%
               </div>

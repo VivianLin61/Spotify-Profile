@@ -89,23 +89,29 @@ function Profile(props) {
             </div>
           </div>
           <div className='top-artists'>
-            <h1>Top Artists This Month</h1>
-            <div className='artists'>
-              {topArtists &&
-                topArtists.map((artist) => (
-                  <ArtistCard key={artist.id} artist={artist} />
-                ))}
-            </div>
+            {topArtists && (
+              <>
+                <h1>Top Artists This Month</h1>
+                <div className='artists'>
+                  {topArtists.map((artist) => (
+                    <ArtistCard key={artist.id} artist={artist} />
+                  ))}
+                </div>
+              </>
+            )}
           </div>
           <div className='top-tracks'>
-            <h1>Top Tracks This Month</h1>
-            <TrackHeader />
-            {topTracks &&
-              topTracks.map((track) => (
-                <TrackCard key={track.id} track={track}>
-                  track
-                </TrackCard>
-              ))}
+            {topTracks && (
+              <>
+                <h1>Top Tracks This Month</h1>
+                <TrackHeader />
+                {topTracks.map((track) => (
+                  <TrackCard key={track.id} track={track}>
+                    track
+                  </TrackCard>
+                ))}
+              </>
+            )}
           </div>
           <div className='top-playlists'>
             <h1>Playlists</h1>
