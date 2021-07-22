@@ -9,6 +9,10 @@ A web app build with React, Node, Express and Spotify API to visualize personal 
 3. Users can serach and view the lyrics of their favoriate tracks.
 4. Users can view their playlists.  
 
+## Project Demo
+
+![n3QuXDowGc](https://user-images.githubusercontent.com/33815743/126704105-d97066f7-ebcd-4083-8ed0-98e2215bd843.gif)
+
 ## Installation
 
 1. Visit https://developer.spotify.com/ and create an app.
