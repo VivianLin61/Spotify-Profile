@@ -6,7 +6,7 @@ A web app build with React, Node, Express and Spotify API to visualize personal 
 
 1. Users can view their top artists and tracks of the month.
 2. Users can view the popularity score of artists and tracks.
-3. Users can serach and view the lyrics of their favoriate tracks.
+3. Users can search and view the lyrics of their favorite tracks.
 4. Users can view their playlists.  
 
 ## Project Demo
