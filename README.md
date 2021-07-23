@@ -1,6 +1,6 @@
 # Spotify-Profile
 
-A web app build with React, Node, Express and Spotify API to visualize personal personal spotify data.
+A web app build with React, Node, Express and Spotify API to visualize personal spotify data.
 
 ## Features
 
