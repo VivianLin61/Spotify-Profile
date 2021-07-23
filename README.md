@@ -36,6 +36,6 @@ git clone https://github.com/VivianLin61/Spotify-Profile.git
 - Run the Server `node server.js`
 7. Start the client.
 - Navigate in to the client directory. `cd client`
-- Run the Server `npm start`
+- Run the Client `npm start`
 
 8. Visit http://localhost:3000
