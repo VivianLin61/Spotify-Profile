@@ -4,7 +4,7 @@ import { CgProfile, CgMusic } from 'react-icons/cg'
 import { MdLibraryMusic } from 'react-icons/md'
 import { GiMicrophone } from 'react-icons/gi'
 import { Link } from 'react-router-dom'
-
+import { AiFillGithub } from 'react-icons/ai'
 function Sidebar() {
   function SidebarItem(props) {
     return (
@@ -35,6 +35,18 @@ function Sidebar() {
           title={'Playlists'}
           link={'/playlists'}
         />
+        <li className='nav-item'>
+          <div className='nav-link'></div>
+        </li>
+        <li className='nav-item'>
+          <a
+            href='https://github.com/VivianLin61/Spotify-Profile'
+            className='nav-link'
+          >
+            <AiFillGithub />
+            <span className='link-text'>{'Github'}</span>
+          </a>
+        </li>
       </ul>
     </nav>
   )
